@@ -2,8 +2,8 @@ BITS 64                             ; architecture 64
 
 section .text                       ; coding section
 
-global _strlen                      ; strlen function_strlen
-    _strlen:
+global strlen                      ; strlen function_strlen
+    strlen:
     xor rax, rax                    ; => int i = 0 in c
 
     .loop:
@@ -13,4 +13,4 @@ global _strlen                      ; strlen function_strlen
         jmp .loop                   ; continue the loop
 
     .end:
-        ret                         ; return the final index
+        ret                         ; return the final index, (rdi register)
