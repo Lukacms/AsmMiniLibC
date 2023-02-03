@@ -9,8 +9,8 @@ global memset                       ; definition of memset function
 
     .loop:
         cmp rcx, rdx                ; check is index is not >= to the size given in param (3rd param)
-        je .end                    ; go to end
-        mov byte [rdi + rcx], sil
+        je .end                     ; go to end
+        mov byte [rdi + rcx], sil   ; set str[ind] to c => sil
         inc rcx                     ; increment the index
         jmp .loop                   ; continue loop
 
