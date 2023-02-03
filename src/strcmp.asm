@@ -26,3 +26,5 @@ global strcmp                       ; definition of strcmp function
         sub r8, r9                  ; => r8 -= r9
         mov rax, r8                 ; set return value to r8
         ret                         ; return rax
+
+; PSA: need to put r8b and not r8 cause it's only byte per byte
