@@ -1,0 +1,19 @@
+BITS 64                             ; architecture 64
+
+section .text                       ; coding section
+
+global memset                       ; definition of memset function
+    memset:
+        xor rax, rax
+        mov rcx, 0x0                ; init an index at 0 (xor with itself == 0)
+
+    .loop:
+        cmp rcx, rdx                ; check is index is not >= to the size given in param (3rd param)
+        je .end                    ; go to end
+        mov byte [rdi + rcx], sil
+        inc rcx                     ; increment the index
+        jmp .loop                   ; continue loop
+
+    .end:
+        mov rax, rdi                ; put malloced param (1st param) in return register (rax)
+        ret                         ; return rax
