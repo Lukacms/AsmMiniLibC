@@ -5,14 +5,16 @@
 ## Makefile
 ##
 
-SRC	=	src/strlen.asm	\
-		src/strchr.asm	\
-		src/strrchr.asm	\
-		src/memset.asm	\
+SRC	=	src/memset.asm	\
 		src/memcpy.asm	\
 		src/memmove.asm	\
 		src/strcasecmp.asm	\
+		src/strchr.asm	\
 		src/strcmp.asm	\
+		src/strlen.asm	\
+		src/strncmp.asm	\
+		src/strpbrk.asm	\
+		src/strrchr.asm	\
 		src/strstr.asm	\
 
 OBJ	=	$(SRC:.asm=.o)
