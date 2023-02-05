@@ -6,7 +6,7 @@ extern strlen                       ; strlen prototype
 
 global strrchr                      ; definition of strchr function
     strrchr:
-        xor rax, rax
+        xor rax, rax                ; convention => init rax (return value) to 0
         call strlen wrt ..plt       ; appelle la fonction strlen et la met dans rax pour avoir la taille de la string
                                     ; | wrt ..plt => with respect to (plt table); code is position independant
 
