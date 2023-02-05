@@ -1,5 +1,5 @@
 *.o
 *.so
-main.c
+main.*
 .clang-format
 assets

@@ -8,8 +8,6 @@ section .text                       ; coding section
 global strcmp                       ; definition of strcmp function
     strcmp:
     xor rax, rax                    ; init the return value
-    mov r8, 0
-    mov r9, 0
     mov rcx, 0x0                    ; init the index
 
     .loop:
