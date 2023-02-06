@@ -1,3 +1,8 @@
+; void *memcpy(void dest[restrict .n], const void src[restrict .n], size_t n);
+; copies n bytes from memory area src to memory area dest.  The memory areas must not overlap.
+; dest => rdi
+; src => rsi
+; n => rdx
 BITS 64                             ; architecture 64
 
 section .text                       ; coding section

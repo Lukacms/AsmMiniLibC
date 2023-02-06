@@ -18,6 +18,11 @@ SRC	=	src/memset.asm	\
 		src/strrchr.asm	\
 		src/strstr.asm	\
 
+SRC_BONUS	=	bonus/strcpy.asm	\
+				bonus/strncpy.asm	\
+
+OBJ_BONUS	=	$(SRC:.asm=.o) $(SRC_BONUS:.asm=.o)
+
 OBJ	=	$(SRC:.asm=.o)
 
 %.o: %.asm
@@ -25,11 +30,16 @@ OBJ	=	$(SRC:.asm=.o)
 
 NAME	=	libasm.so
 
+NAME_BONUS	=	libmoreasm.so
+
 all:	$(NAME)
 .PHONY:	all
 
 $(NAME):	$(OBJ)
 	ld -shared -fPIC -o $(NAME) $(OBJ)
+
+bonus:	$(OBJ_BONUS)
+	ld -shared -fPIC -o $(NAME_BONUS) $(OBJ_BONUS)
 
 clean:
 	find -name "*.o" -delete
@@ -37,6 +47,7 @@ clean:
 
 fclean:	clean
 	rm -f $(NAME)
+	rm -f $(NAME_BONUS)
 .PHONY:	fclean
 
 re: fclean all
