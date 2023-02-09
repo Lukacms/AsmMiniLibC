@@ -3,3 +3,4 @@
 main.*
 .clang-format
 assets
+*.txt

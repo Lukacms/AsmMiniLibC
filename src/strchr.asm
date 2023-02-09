@@ -1,15 +1,17 @@
+; char *strchr(const char *s, int c);
 BITS 64                             ; architecture 64
 
 section .text                       ; coding section
 
 global strchr                      ; definition of strchr function
     strchr:
+        xor rax, rax
 
     .loop:
-        cmp byte [rdi], 0x0         ; compare the string and the null byte | check if string is over
-        je .end_null
         cmp byte [rdi], sil         ; compare the string and the char | sil is rsi (second param) but on 8 bytes
         je .is_true                 ; if the comparaison is true
+        cmp byte [rdi], 0x0         ; compare the string and the null byte | check if string is over
+        je .end_null
         inc rdi                     ; increment the string index
         jmp .loop
 

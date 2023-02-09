@@ -25,8 +25,22 @@ OBJ_BONUS	=	$(SRC:.asm=.o) $(SRC_BONUS:.asm=.o)
 
 OBJ	=	$(SRC:.asm=.o)
 
+SRC_TESTS	=	tests/tests.c	\
+
+OBJ_TESTS	=	$(SRC_TESTS:.c=.o)
+
+NAME_TESTS	=	unit_tests
+
 %.o: %.asm
 	nasm -f elf64 $<
+
+CPPFLAGS	=	--coverage
+
+CFLAGS	=	-fprofile-arcs -ftest-coverage
+
+LDFLAGS	=	-L.
+
+LDLIBS	=	-lasm -lcriterion -lgcov
 
 NAME	=	libasm.so
 
@@ -41,13 +55,20 @@ $(NAME):	$(OBJ)
 bonus:	$(OBJ_BONUS)
 	ld -shared -fPIC -o $(NAME_BONUS) $(OBJ_BONUS)
 
+tests_run:	fclean $(OBJ_TESTS) $(NAME)
+	gcc -o $(NAME_TESTS) $(OBJ_TESTS) $(LDFLAGS) $(LDLIBS)
+	-./$(NAME_TESTS)
+.PHONY: tests_run
+
 clean:
 	find -name "*.o" -delete
+	find -name "*.gc*" -delete
 .PHONY:	clean
 
 fclean:	clean
 	rm -f $(NAME)
 	rm -f $(NAME_BONUS)
+	rm -f $(NAME_TESTS)
 .PHONY:	fclean
 
 re: fclean all

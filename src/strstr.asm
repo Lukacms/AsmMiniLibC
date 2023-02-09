@@ -14,7 +14,7 @@ global strstr                       ; definition of strstr function
         mov r9, 0x0                 ; init tmp register to compare
         mov r10, 0x0                ; can't have more than 2 registers on a operation
         ; check if needle is empty, in chich case we return a pointer to the beginning of haystack
-        cmp rsi, 0x0
+        cmp byte [rsi], 0x0
         je .end_null
         jmp .loop
 

@@ -22,9 +22,9 @@ global strcspn                      ; definition of strcspn function
 
     .search_reject:
         cmp byte [rsi + r9], 0x0    ; see if end of reject, in which case found good byte
-        je .end
+        je .back_to_loop
         cmp r8b, byte [rsi + r9]    ; see if s[rcx] and reject[r9] are equal
-        je .back_to_loop            ; go back to loop if equal
+        je .end                     ; go back to loop if equal
         inc r9                      ; increment r9 index
         jmp .search_reject          ; continue loop
 

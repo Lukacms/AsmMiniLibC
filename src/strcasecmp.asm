@@ -13,57 +13,37 @@ global strcasecmp                       ; definition of strcasecmp function
         mov r9, 0x0                     ; because they are on 64 bits and only 8 of them will be used in the comparaison
 
     .loop:
+        mov r8b, byte [rdi + rcx]       ; move s1[rcx] in temp register to not modify it
+        mov r9b, byte [rsi + rcx]       ; move s2[rcx] in temp register to not modify it
         cmp byte [rdi + rcx], 0x0       ; see if first str is finished
         je .end
         cmp byte [rsi + rcx], 0x0       ; see if second str is finished
         je .end
-        mov r8b, byte [rdi + rcx]       ; move s1[rcx] in temp register to not modify it
-        mov r9b, byte [rsi + rcx]       ; move s2[rcx] in temp register to not modify it
         cmp r8b, 'A'                    ; see if s1[rcx] can be a letter
         jge .is_first_higher_letter     ; check if it's possible
         jmp .compare                    ; if not, just compare both chars
 
     .is_first_higher_letter:            ; check if s1[rcx] is between 'A' and 'Z'
         cmp r8b, 'Z'
-        jbe .is_second_lower            ; if yes, check if s2[rcx] is between 'a' and 'z' => would have to put it in uppercase if yes
-        jmp .is_first_lower             ; if no, check if s1[rcx] is between 'a' and 'z'
+        jbe .to_lowercase_first         ; if yes, check if s2[rcx] is between 'a' and 'z' => would have to put it in uppercase if yes
+        jmp .check_second               ; if no, check if s1[rcx] is between 'a' and 'z'
 
-    .is_first_lower:                    ; check if s1[rcx] > 'a'
-        cmp r8b, 'a'
-        jge .is_first_lower_contained   ; if yes, check if < 'z'
-        jmp .compare                    ; if no, can't be alphabetic and just compare both chars
+    .to_lowercase_first:
+        add r8b, 32
+        jmp .check_second
 
-    .is_first_lower_contained:          ; check if s1[rcx] between 'a' and 'z'
-        cmp r8b, 'z'
-        jbe .is_second_higher           ; if yes, check if s2[rcx] is uppercase => would have to put in lowercase if yes
-        jmp .compare                    ; if not, not alphabetic so just compare chars
-
-    .is_second_lower:                   ; check if s2[rcx] is lower, in wich case it would be put in uppercase
-        cmp r9b, 'a'
-        jge .is_second_lower_contained  ; if s2[rcx] > 'a', check if < 'z'
-        jmp .compare                    ; if not, compare
-
-    .is_second_lower_contained:         ; check if s2[rcx] < 'z'
-        cmp r9b, 'z'
-        jbe .second_to_uppercase        ; if yes, transform to uppercase
-        jmp .compare                    ; not, compare
-
-    .second_to_uppercase:
-        sub r9b, 32                     ; transform to uppercase, 'A' - 'a' = -32 in ascii
-        jmp .compare
-
-    .is_second_higher:                  ; check if s2[rcx] is uppercase
+    .check_second:
         cmp r9b, 'A'
-        jge .is_second_higher_contained ; if > 'A', check if < 'Z'
+        jge .check_encapsulate
         jmp .compare
 
-    .is_second_higher_contained:        ; check if s2[rcx] < 'Z'
+    .check_encapsulate:
         cmp r9b, 'Z'
-        jbe .second_to_lowercase        ; if yes, transform to lowercase
+        jbe .to_lowercase_second
         jmp .compare
 
-    .second_to_lowercase:
-        add r9b, 32                     ; 'a' - 'A' = 32 in ascii
+    .to_lowercase_second:
+        add r9b, 32
         jmp .compare
 
     .compare:

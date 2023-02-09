@@ -10,26 +10,26 @@ extern memcpy
 
 global memmove
     memmove:
-        xor rax, rax                ; init return value to 0
-        mov rcx, rdi                ; put first param (dest) in temp register
-        sub rcx, rsi                ; substract dest address with src one
-        cmp rcx, rdx                ; compare the result with n => if <, it means that src and dest overlap in memory
-        jge .end_memcpy             ; if greater, just execute a "classic" memcpy
+        xor rax, rax                    ; init return value to 0
+        mov rcx, rdi                    ; put first param (dest) in temp register
+        sub rcx, rsi                    ; substract dest address with src one
+        cmp rcx, rdx                    ; compare the result with n => if <, it means that src and dest overlap in memory
+        jge .end_memcpy                 ; if greater, just execute a "classic" memcpy
         mov r9, rdx
-        jmp .other                  ; if not, do an "inversed" memcpy (start by the end instead of beginning)
+        jmp .other                      ; if not, do an "inversed" memcpy (start by the end instead of beginning)
 
     .end_memcpy:
-        call memcpy wrt ..plt       ; call memcpy on rax (-> return value)
-        ret                         ; return rax
+        call memcpy wrt ..plt           ; call memcpy on rax (-> return value)
+        ret                             ; return rax
 
     .other:
-        dec r9                      ; decrement n
-        mov r8b, byte [rsi + r9]    ; put src[n] to temp register
-        mov byte [rdi + r9], r8b    ; put dest[n] at src[n]
-        cmp r9b, 0x0                ; see if size given in param is <= 0
-        je .end_other               ; go to end
-        jmp .other                  ; go back to loop
+        dec r9                          ; decrement n
+        mov r8b, byte [rsi - 1 + r9]    ; put src[n] to temp register
+        mov byte [rdi - 1 + r9], r8b    ; put dest[n] at src[n]
+        cmp r9b, 0x0                    ; see if size given in param is <= 0
+        je .end_other                   ; go to end
+        jmp .other                      ; go back to loop
 
     .end_other:
-        mov rax, rdi                ; move dest to return value
-        ret                         ; return rax
+        mov rax, rdi                    ; move dest to return value
+        ret                             ; return rax

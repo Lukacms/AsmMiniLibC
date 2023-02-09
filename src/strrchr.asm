@@ -11,10 +11,10 @@ global strrchr                      ; definition of strchr function
                                     ; | wrt ..plt => with respect to (plt table); code is position independant
 
     .loop:
-        cmp rax, 0x0                ; compare the index, to see if position is at 0
-        je .end_null
         cmp byte [rdi + rax], sil   ; compare the string and the char | sil is rsi (second param) but on 8 bytes
         je .end                     ; if the comparaison is true
+        cmp rax, 0x0                ; compare the index, to see if position is at 0
+        je .end_null
         sub rax, 1                  ; decrement the index
         jmp .loop
 

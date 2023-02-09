@@ -9,6 +9,8 @@ global strcmp                       ; definition of strcmp function
     strcmp:
     xor rax, rax                    ; init the return value
     mov rcx, 0x0                    ; init the index
+    mov r8, 0x0
+    mov r9, 0x0
 
     .loop:
         cmp byte [rdi + rcx], 0x0   ; see if first str is finished
