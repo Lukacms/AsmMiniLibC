@@ -20,10 +20,11 @@ SRC	=	src/memset.asm	\
 
 SRC_BONUS	=	bonus/strcpy.asm	\
 				bonus/strncpy.asm	\
+				bonus/index.asm	\
+				bonus/rindex.asm	\
+				bonus/memfrob.asm	\
 
-OBJ_BONUS	=	$(SRC:.asm=.o) $(SRC_BONUS:.asm=.o)
-
-OBJ	=	$(SRC:.asm=.o)
+OBJ	=	$(SRC:.asm=.o) $(SRC_BONUS:.asm=.o)
 
 SRC_TESTS	=	tests/tests.c	\
 

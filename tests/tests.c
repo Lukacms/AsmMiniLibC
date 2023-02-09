@@ -275,7 +275,7 @@ Test(test_strcspn, basic, .init = init_all)
     cr_assert_eq(my_strcspn("", ""), strcspn("", ""));
     cr_assert_eq(my_strcspn("test", "test"), strcspn("test", "test"));
 }
-/* Test(test_index_1, basic, .init = init_all)
+Test(test_index_1, basic, .init = init_all)
 {
     cr_assert_eq(my_index("test", 't'), index("test", 't'));
     cr_assert_eq(my_index("test", 'w'), index("test", 'w'));
@@ -290,12 +290,14 @@ Test(test_rindex_1, basic, .init = init_all)
     cr_assert_eq(my_rindex("test", '\0'), rindex("test", '\0'));
     cr_assert_eq(my_rindex("", 'p'), rindex("", 'p'));
     cr_assert_eq(my_rindex("", '\0'), rindex("", '\0'));
-} */
-/* Test(test_memfrob, basic, .init = init_all)
+}
+
+/* #define __USE_GNU
+Test(test_memfrob, basic, .init = init_all)
 {
-    char *s = strdup("test");
-    cr_assert_eq(my_memfrob(s, strlen(s)), memfrob(s, strlen(s)));
-    cr_assert_eq(my_memfrob(s, 2), memfrob(s, 2));
-    cr_assert_eq(my_memfrob(s, 0), memfrob(s, 0));
+    char *str = strdup("test");
+    cr_assert_eq(my_memfrob(str, strlen(str)), memfrob(str, strlen(str)));
+    cr_assert_eq(my_memfrob(str, 2), memfrob(str, 2));
+    cr_assert_eq(my_memfrob(str, 0), memfrob(str, 0));
     cr_assert_eq(my_memfrob("", 0), memfrob("", 0));
 } */
