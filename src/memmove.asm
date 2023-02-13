@@ -23,11 +23,11 @@ global memmove
         ret                             ; return rax
 
     .other:
-        dec r9                          ; decrement n
         mov r8b, byte [rsi - 1 + r9]    ; put src[n] to temp register
         mov byte [rdi - 1 + r9], r8b    ; put dest[n] at src[n]
         cmp r9b, 0x0                    ; see if size given in param is <= 0
         je .end_other                   ; go to end
+        dec r9                          ; decrement n
         jmp .other                      ; go back to loop
 
     .end_other:
