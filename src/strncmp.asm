@@ -15,7 +15,7 @@ global strncmp                      ; definition of strncmp function
 
     .loop:
         cmp rcx, rdx - 1            ; see if index is equal to n
-        jbe .end
+        jge .end
         cmp byte [rdi + rcx], 0x0   ; see if first str is finished
         je .end
         cmp byte [rsi + rcx], 0x0   ; see if second str is finished
