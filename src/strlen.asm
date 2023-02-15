@@ -1,3 +1,6 @@
+; size_t strlen(const char *s);
+; calculates the length of the string pointed to by s, excluding the terminating null byte ('\0').
+; s => rdi
 BITS 64                             ; architecture 64
 
 section .text                       ; coding section

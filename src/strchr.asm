@@ -1,4 +1,7 @@
 ; char *strchr(const char *s, int c);
+; returns a pointer to the first occurrence of the character c in the string s.
+; s => rdi
+; c => rsi
 BITS 64                             ; architecture 64
 
 section .text                       ; coding section

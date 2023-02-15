@@ -1,4 +1,5 @@
 ; int strcasecmp(const char *s1, const char *s2);
+; byte-by-byte comparison of the strings s1 and s2, ignoring the case of the characters.
 ; s1 => rdi
 ; s2 => rsi
 BITS 64                                 ; architecture 64

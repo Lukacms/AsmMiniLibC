@@ -1,3 +1,8 @@
+; void *memset(void s[.n], int c, size_t n);
+; fills the first n bytes of the memory area pointed to by s with the constant byte c.
+; s => rdi
+; c => rsi
+; n => rdx
 BITS 64                             ; architecture 64
 
 section .text                       ; coding section
