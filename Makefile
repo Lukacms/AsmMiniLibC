@@ -53,9 +53,6 @@ all:	$(NAME)
 $(NAME):	$(OBJ)
 	ld -shared -fPIC -o $(NAME) $(OBJ)
 
-bonus:	$(OBJ_BONUS)
-	ld -shared -fPIC -o $(NAME_BONUS) $(OBJ_BONUS)
-
 tests_run:	fclean $(OBJ_TESTS) $(NAME)
 	gcc -o $(NAME_TESTS) $(OBJ_TESTS) $(LDFLAGS) $(LDLIBS)
 	-./$(NAME_TESTS)
