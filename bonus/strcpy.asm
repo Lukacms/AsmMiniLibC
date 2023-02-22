@@ -7,8 +7,6 @@ BITS 64                             ; architecture 64
 
 section .text                       ; coding section
 
-extern strlen                       ; strlen prototype
-
 global strcpy                       ; definition of strcpy
     strcpy:
         xor rax, rax                ; init return value (convention)

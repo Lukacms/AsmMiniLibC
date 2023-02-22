@@ -44,11 +44,42 @@ Test(test_index, basic, .init = init_fun)
     cr_assert_str_eq(my_index("Hello", 'e'), index("Hello", 'e'));
 }
 
+Test(test_index, index_not_in_str, .init = init_fun)
+{
+    cr_assert_null(my_index("Hello", 'u'));
+    cr_assert_null(index("Hello", 'u'));
+}
+
+Test(test_index, index_more_than_one_time, .init = init_fun)
+{
+    cr_assert_str_eq(my_index("Hello", 'l'), index("Hello", 'l'));
+}
+
+Test(test_index, terminating_null_byte, .init = init_fun)
+{
+    cr_assert_str_eq(my_index("Hello", '\0'), index("Hello", '\0'));
+}
+
 Test(test_memfrob, basic, .init = init_fun)
 {
     char *str = strdup("test");
     cr_assert_eq(my_memfrob(str, strlen(str)), memfrob(str, strlen(str)));
+}
+
+Test(test_memfrob, different_ind_1, .init = init_fun)
+{
+    char *str = strdup("bonsoir");
     cr_assert_eq(my_memfrob(str, 2), memfrob(str, 2));
+}
+
+Test(test_memfrob, different_ind_2, .init = init_fun)
+{
+    char *str = strdup("bonsoir");
     cr_assert_eq(my_memfrob(str, 0), memfrob(str, 0));
+}
+
+Test(test_memfrob, empty_strings, .init = init_fun)
+{
+    char *str = strdup("bonsoir");
     cr_assert_eq(my_memfrob("", 0), memfrob("", 0));
 }
