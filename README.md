@@ -36,5 +36,18 @@ A Makefile is used to compile the code, and it use the following rules:
 | `make tests_run`    | Execute the criterion tests.  |
 | `make re`        | Calls `make fclean` and then `make`.            |
 
+## How to use the compiled library ? (in c code)
+You can use the function `dlopen` (in `dlfcn.h`) to load the library and pass the function to function pointers. E.g. with `strstr`:
+```c
+    void *buff = dlopen("./libasm.so", RTLD_LAZY);
+    char *(*funptr)(const char *, const char *) = dlsym(buff, "strstr");
+    char *res = funptr("hello world", "world");
+
+    printf("%s\n", res);
+```
+
+### Nb
+The functions have a similar behavior as the glibc, so any unchecked pointers will result in a segfault :)
+
 ## Author
 [Luka Camus](https://github.com/Lukacms/)
