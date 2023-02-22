@@ -27,6 +27,7 @@ SRC_BONUS	=	bonus/strcpy.asm	\
 OBJ	=	$(SRC:.asm=.o) $(SRC_BONUS:.asm=.o)
 
 SRC_TESTS	=	tests/tests.c	\
+				tests/test_bonus.c	\
 
 OBJ_TESTS	=	$(SRC_TESTS:.c=.o)
 

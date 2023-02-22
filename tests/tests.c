@@ -15,26 +15,26 @@
 #include <stdlib.h>
 #include <string.h>
 
-size_t (*my_strlen)(const char *);
-char *(*my_strchr)(const char *, int);
-char *(*my_index)(const char *, int);
-char *(*my_rindex)(const char *, int);
-char *(*my_strrchr)(const char *, int);
-void *(*my_memset)(void *, int, size_t);
-void *(*my_memcpy)(void *, void *, size_t);
-void *(*my_memmove)(void *, void *, size_t);
-void *(*my_memfrob)(void *, size_t);
-int (*my_strcmp)(const char *, const char *);
-char *(*my_strstr)(const char *, const char *);
-char *(*my_strpbrk)(const char *, const char *);
-int (*my_strcasecmp)(const char *, const char *);
-size_t (*my_strcspn)(const char *, const char *);
-int (*my_strncmp)(const char *, const char *, size_t);
+static size_t (*my_strlen)(const char *);
+static char *(*my_strchr)(const char *, int);
+static char *(*my_index)(const char *, int);
+static char *(*my_rindex)(const char *, int);
+static char *(*my_strrchr)(const char *, int);
+static void *(*my_memset)(void *, int, size_t);
+static void *(*my_memcpy)(void *, void *, size_t);
+static void *(*my_memmove)(void *, void *, size_t);
+static void *(*my_memfrob)(void *, size_t);
+static int (*my_strcmp)(const char *, const char *);
+static char *(*my_strstr)(const char *, const char *);
+static char *(*my_strpbrk)(const char *, const char *);
+static int (*my_strcasecmp)(const char *, const char *);
+static size_t (*my_strcspn)(const char *, const char *);
+static int (*my_strncmp)(const char *, const char *, size_t);
 
 void init_all()
 {
-    void *handle;
-    handle = dlopen("./libasm.so", RTLD_LAZY);
+    void *handle = dlopen("./libasm.so", RTLD_LAZY);
+
     if (!handle) {
         fprintf(stderr, "%s\n", dlerror());
         exit(EXIT_FAILURE);
@@ -337,13 +337,3 @@ Test(test_strncmp_end, basic, .init = init_all)
     cr_assert_eq(my_strncmp("Hello", "Hello world", 5),
                  strncmp("Hello", "Hello world", 5));
 }
-
-/* #define __USE_GNU
-Test(test_memfrob, basic, .init = init_all)
-{
-    char *str = strdup("test");
-    cr_assert_eq(my_memfrob(str, strlen(str)), memfrob(str, strlen(str)));
-    cr_assert_eq(my_memfrob(str, 2), memfrob(str, 2));
-    cr_assert_eq(my_memfrob(str, 0), memfrob(str, 0));
-    cr_assert_eq(my_memfrob("", 0), memfrob("", 0));
-} */
