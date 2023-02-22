@@ -1,7 +1,7 @@
 ; void *memmove(void *dest, void *src, size_t n);
-; dest -> value to set
-; src -> value that dest is gonna be
-; n -> size of buffer
+; dest: rdi -> value to set
+; src: rsi -> value that dest is gonna be
+; n: rdx -> size of buffer
 BITS 64                             ; architecture 64
 
 section .text                       ; coding section
@@ -25,9 +25,9 @@ global memmove
     .other:
         mov r8b, byte [rsi - 1 + r9]    ; put src[n] to temp register
         mov byte [rdi - 1 + r9], r8b    ; put dest[n] at src[n]
+        dec r9                          ; decrement n
         cmp r9, 0x0                     ; see if size given in param is <= 0
         je .end_other                   ; go to end
-        dec r9                          ; decrement n
         jmp .other                      ; go back to loop
 
     .end_other:
