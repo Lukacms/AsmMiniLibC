@@ -7,7 +7,9 @@ BITS 64                             ; architecture 64
 section .text                       ; coding section
 
 global strchr                      ; definition of strchr function
+global index
     strchr:
+    index:
         xor rax, rax
 
     .loop:

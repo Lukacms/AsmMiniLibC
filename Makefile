@@ -20,8 +20,6 @@ SRC	=	src/memset.asm	\
 
 SRC_BONUS	=	bonus/strcpy.asm	\
 				bonus/strncpy.asm	\
-				bonus/index.asm	\
-				bonus/rindex.asm	\
 				bonus/memfrob.asm	\
 
 OBJ	=	$(SRC:.asm=.o) $(SRC_BONUS:.asm=.o)
